@@ -13,7 +13,7 @@ app.post("/create-checkout-session", async (req, res) => {
     return {
       price_data: {
         currency: "thb",
-        unit_amount: room.price * 100,
+        unit_amount: (room.price * room.totalRoom) * 100,
         product_data: {
           name: room?.roomName || "unknow",
           // images: [room.coverImage],
@@ -22,7 +22,7 @@ app.post("/create-checkout-session", async (req, res) => {
           },
         },
       },
-      quantity: room.totalRoom,
+      quantity: room.amountDay,
     };
   });
   const session = await stripe.checkout.sessions.create({
